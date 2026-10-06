@@ -1,0 +1,258 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Lexend+Deca:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 105 20% 12%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 105 20% 12%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 105 20% 12%;
+
+    --primary: 105 54% 20%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 105 15% 96%;
+    --secondary-foreground: 105 30% 12%;
+
+    --muted: 105 8% 93%;
+    --muted-foreground: 105 10% 42%;
+
+    --accent: 105 45% 25%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 105 10% 90%;
+    --input: 105 10% 90%;
+    --ring: 105 54% 20%;
+
+    --radius: 0.75rem;
+
+    --hero-gradient: linear-gradient(160deg, hsl(105, 54%, 18%) 0%, hsl(108, 50%, 13%) 50%, hsl(110, 45%, 9%) 100%);
+    --card-shadow: 0 1px 3px hsl(105 30% 20% / 0.04), 0 8px 30px hsl(105 30% 20% / 0.06);
+    --card-shadow-hover: 0 12px 40px hsl(105 30% 20% / 0.1), 0 2px 8px hsl(105 30% 20% / 0.05);
+
+    --sidebar-background: 0 0% 100%;
+    --sidebar-foreground: 105 20% 12%;
+    --sidebar-primary: 105 54% 20%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 105 15% 96%;
+    --sidebar-accent-foreground: 105 20% 12%;
+    --sidebar-border: 105 10% 90%;
+    --sidebar-ring: 105 54% 20%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Lexend Deca', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    letter-spacing: -0.01em;
+  }
+
+  h1, h2, h3 {
+    font-family: 'DM Serif Display', serif;
+    letter-spacing: -0.02em;
+  }
+
+  ::selection {
+    background: hsl(105, 54%, 20%);
+    color: hsl(0, 0%, 100%);
+  }
+}
+
+/* Scroll reveal – clean & fast */
+.reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal-left {
+  opacity: 0;
+  transform: translateX(-30px);
+  transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+}
+
+.reveal-left.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.reveal-right {
+  opacity: 0;
+  transform: translateX(30px);
+  transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+}
+
+.reveal-right.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+
+/* Infinite marquee */
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-marquee {
+  animation: marquee 80s linear infinite;
+}
+
+@media (max-width: 768px) {
+  .animate-marquee {
+    animation: marquee 18s linear infinite;
+  }
+}
+
+@keyframes marqueeReviews {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-25%); }
+}
+
+@media (max-width: 768px) {
+  .animate-marquee-reviews,
+  [style*="marqueeReviews"] {
+    animation-duration: 30s !important;
+  }
+}
+
+/* Loading screen */
+@keyframes loadingBar {
+  0% { width: 0%; }
+  40% { width: 60%; }
+  80% { width: 90%; }
+  100% { width: 100%; }
+}
+
+.loading-bar {
+  animation: loadingBar 3.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes ringPulse1 {
+  0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.1; }
+  50% { transform: translate(-50%, -50%) scale(1.05); opacity: 0.2; }
+}
+@keyframes ringPulse2 {
+  0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.1; }
+  50% { transform: translate(-50%, -50%) scale(1.08); opacity: 0.15; }
+}
+@keyframes ringPulse3 {
+  0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.05; }
+  50% { transform: translate(-50%, -50%) scale(1.12); opacity: 0.1; }
+}
+
+.loading-ring-1 { animation: ringPulse1 2s ease-in-out infinite; }
+.loading-ring-2 { animation: ringPulse2 2.5s ease-in-out infinite 0.3s; }
+.loading-ring-3 { animation: ringPulse3 3s ease-in-out infinite 0.6s; }
+
+/* Hero stagger */
+@keyframes heroSlideUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.hero-stagger-1 { animation: heroSlideUp 0.6s ease-out 0.1s both; }
+.hero-stagger-2 { animation: heroSlideUp 0.6s ease-out 0.2s both; }
+.hero-stagger-3 { animation: heroSlideUp 0.6s ease-out 0.3s both; }
+.hero-stagger-4 { animation: heroSlideUp 0.6s ease-out 0.4s both; }
+
+@keyframes heroImageReveal {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.hero-image-reveal {
+  animation: heroImageReveal 0.7s ease-out 0.3s both;
+}
+
+/* Float */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+/* Smooth scroll */
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+
+body {
+  overflow-x: hidden;
+}
+
+/* Custom range slider */
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 8px;
+  border-radius: 999px;
+  background: hsl(var(--muted));
+  outline: none;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: hsl(var(--primary));
+  cursor: pointer;
+  border: 3px solid hsl(var(--background));
+  box-shadow: 0 2px 8px hsl(var(--primary) / 0.3);
+  transition: transform 0.2s;
+}
+
+input[type="range"]::-webkit-slider-thumb:hover {
+  transform: scale(1.15);
+}
+
+input[type="range"]::-moz-range-thumb {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: hsl(var(--primary));
+  cursor: pointer;
+  border: 3px solid hsl(var(--background));
+  box-shadow: 0 2px 8px hsl(var(--primary) / 0.3);
+}
+
+/* Fade in for tab transitions */
+@keyframes fadeSlideIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in {
+  animation: fadeSlideIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
