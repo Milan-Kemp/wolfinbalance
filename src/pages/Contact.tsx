@@ -64,8 +64,16 @@ const Contact = () => {
     }
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    // Honeypot: echte bezoekers zien dit veld niet, bots vullen het wel in.
+    const honey = new FormData(e.currentTarget).get("_honey");
+    if (honey) {
+      navigate("/bedankt");
+      return;
+    }
+
     const result = contactSchema.safeParse(form);
 
     if (!result.success) {
@@ -92,6 +100,7 @@ const Contact = () => {
       formData.append("_replyto", result.data.email);
       formData.append("_template", "table");
       formData.append("_captcha", "false");
+      formData.append("_honey", "");
 
       const res = await fetch("https://formsubmit.co/ajax/afspraak@wolfinbalance.nl", {
         method: "POST",
@@ -156,6 +165,14 @@ const Contact = () => {
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-4">
+                  <input
+                    type="text"
+                    name="_honey"
+                    tabIndex={-1}
+                    autoComplete="off"
+                    aria-hidden="true"
+                    className="absolute -left-[9999px] h-0 w-0 opacity-0"
+                  />
                   <div className="grid sm:grid-cols-2 gap-4">
                     <div>
                       <label className="block text-xs font-medium text-foreground mb-1.5">Naam *</label>
